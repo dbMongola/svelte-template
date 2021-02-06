@@ -241,6 +241,7 @@ module.exports = {
         {
           inject: true,
           template: 'public/index.html',
+          favicon: 'public/favicon.png',
         },
         isProd
           ? {
