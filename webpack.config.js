@@ -1,4 +1,3 @@
-const Os = require('os')
 const path = require('path')
 const webpack = require('webpack')
 const Preprocess = require('svelte-preprocess')
@@ -88,21 +87,6 @@ function handleProcessEnv() {
   return { ...envs }
 }
 
-function getIP() {
-  const ipList = Os.networkInterfaces()
-  for (const key in ipList) {
-    if (Object.hasOwnProperty.call(ipList, key)) {
-      const item = ipList[key]
-      for (let index = 0; index < item.length; index++) {
-        const data = item[index]
-        if (data.family === 'IPv4' && data.address !== '127.0.0.1') {
-          return data.address
-        }
-      }
-    }
-  }
-}
-
 const sveltePath = path.resolve('node_modules', 'svelte')
 
 module.exports = {
@@ -117,8 +101,9 @@ module.exports = {
     stats: 'minimal',
     contentBase: 'public',
     watchContentBase: true,
-    host: getIP(),
+    host: '0.0.0.0',
     open: true,
+    useLocalIp: true,
   },
   // 在生产初期停止编译
   bail: isProd,
